@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>舞萌DX / 中二节奏 登入二维码</title>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        .hidden {display: none;}
+        html, body { border: none; padding: 0px; margin: 0px; width: 100%; height: 100%; }
+        .contents { position: relative; margin: 0px; padding: 0px; height: 90%; width: 100%; }
+        .main { height: 100%; width: 100%; display: table; }
+        .wrapper { display: table-cell; height: 100%; text-align: center; vertical-align: middle; }
+        .header { position: absolute; top: 0px; font-size: 20px; line-height: 30px; text-align: center; width: 100%; }
+        .footer { position: absolute; bottom: 0px; font-size: 20px; line-height: 30px; text-align: center; width: 100%; }
+        .line-break { word-wrap: break-word; }
+    </style>
+</head>
+<body>
+    {% if login_successful %}
+        <div class = "contents">
+        <div class="header line-break">把下方二维码对准机台扫描处，可用机台有【舞萌DX】和【中二节奏】</div>
+        <div class = "main"><div class = "wrapper">
+        <img src="{{ image_url }}" alt="QR Code">
+        </div></div>
+        {% if expiration_time %}
+        <div class="footer" style="color: #cc0000; font-weight: bold;">有效期限 : {{ expiration_time }}</div>
+        </div>
+        {% endif %}
+    {% else %}
+        {{ login_message }}
+        <h1>Login</h1>
+        <form method="POST" action="/login">
+            <label for="username">用户名：</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">密码：</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="submit" value="登录">
+        </form>
+    {% endif %}
+</body>
+</html>
